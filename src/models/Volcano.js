@@ -1,4 +1,4 @@
-import { Schema, model, Types } from "mongoose";
+import { Schema, model, Types } from 'mongoose';
 
 const volcanoSchema = new Schema({
     name: {
@@ -30,7 +30,7 @@ const volcanoSchema = new Schema({
     typeVolcano: {
         type: String,
         required: [true, 'Volcano type is required!'],
-        enum: ["Supervolcanoes", "Submarine", "Subglacial", "Mud", "Stratovolcanoes", "Shield"],
+        enum: ['Supervolcanoes', 'Submarine', 'Subglacial', 'Mud', 'Stratovolcanoes', 'Shield'],
     },
     description: {
         type: String,

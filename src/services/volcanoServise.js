@@ -17,5 +17,9 @@ export default {
 
     delete(volcanoId) {
         return Volcano.findByIdAndDelete(volcanoId);
-    }
+    },
+
+    edit(volcanoId, volcano) {
+        return Volcano.findByIdAndUpdate(volcanoId, volcano, { runValidators: true });
+    },
 }
