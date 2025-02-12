@@ -16,10 +16,27 @@ try {
 }
 
 
+//* Handlebars set up
+app.engine('hbs', handlebars.engine({
+    extname: 'hbs',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+    },
+   
+}));
+app.set('view engine', 'hbs');
+app.set('views', './src/views');
+
 //* Express set up
 app.use(express.static('src/public'));
 app.use(express.urlencoded({ extended: false })); // Learn express to parse form data
 app.use(cookieParser());
+app.use(expressSession({
+    secret: '$2b$10$KeohpPQ4M6i23G/d4I768uplZM2/8sdRC5/gYaBDLddkd.Aizd/ssd',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, httpOnly: true }
+}));
 
 
 //* Start express
