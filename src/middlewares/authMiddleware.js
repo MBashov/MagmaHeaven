@@ -35,7 +35,7 @@ export const isAuth = (req, res, next) => {
 export const isGuest = (req, res, next) => {
     
     if (req.user) {
-        res.setError('You are already logged in!')
+        res.setError('You are already logged in!');
         return res.redirect('/');
     }
 
