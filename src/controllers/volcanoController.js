@@ -119,4 +119,8 @@ volcanoController.post('/:volcanoId/edit', isAuth, async (req, res) => {
     }
 });
 
+volcanoController.get('/search', (req, res) => {
+    res.render('volcano/search');
+});
+
 export default volcanoController;
