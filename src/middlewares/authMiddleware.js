@@ -26,6 +26,7 @@ export const auth = (req, res, next) => {
 export const isAuth = (req, res, next) => {
     
     if (!req.user) {
+        res.setError('Please log in!');
         return res.redirect('/auth/login');
     }
 
