@@ -5,5 +5,9 @@ export default {
     create(volcanoData, userId) {
         return Volcano.create({ ...volcanoData, owner: userId });
 
+    },
+
+    getAllForCatalog() {
+        return Volcano.find({}).select({name: true, location: true, typeVolcano: true, image: true});
     }
 }

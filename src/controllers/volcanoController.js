@@ -7,6 +7,21 @@ import getVolcanoTypes from "../utils/volcanoTypeUtils.js";
 
 const volcanoController = Router();
 
+
+volcanoController.get('/catalog', async (req, res) => {
+
+    try {
+        const vulcanoes = await volcanoServise.getAllForCatalog();
+        res.render('volcano/catalog', { vulcanoes });
+
+    } catch (err) {
+        //TODO: Error handling!
+        console.log(err.message);
+        
+    }
+
+});
+
 volcanoController.get('/create', isAuth, (req, res) => {
     const types = getVolcanoTypes();
     res.render('volcano/create', { types });
