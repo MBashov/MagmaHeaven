@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 import expressSession from 'express-session'; 
 
 import routes from "./routes.js";
+import { auth } from './middlewares/authMiddleware.js';
+import { tempData } from "./middlewares/tempDataMiddleware.js";
 
 
 //* Db set up
@@ -40,6 +42,8 @@ app.use(expressSession({
     cookie: { secure: false, httpOnly: true }
 }));
 
+app.use(auth);
+app.use(tempData);
 app.use(routes);
 
 //* Start express
