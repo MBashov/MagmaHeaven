@@ -44,6 +44,9 @@ authController.post('/register', async (req, res) => {
     }
 });
 
-
+authController.get('/logout', isAuth, (req, res) => {
+    res.clearCookie(AUTH_COOKIE_NAME);
+    res.redirect('/');
+});
 
 export default authController;
