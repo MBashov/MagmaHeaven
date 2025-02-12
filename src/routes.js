@@ -7,6 +7,6 @@ const routes = Router();
 
 routes.use(homeController);
 routes.use('/auth', authController);
-routes.use('volcanoes', volcanoController);
+routes.use('/volcanoes', volcanoController);
 
 export default routes;
