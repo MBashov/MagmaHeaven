@@ -9,6 +9,8 @@ import { auth } from './middlewares/authMiddleware.js';
 import { tempData } from "./middlewares/tempDataMiddleware.js";
 
 
+const app = express();
+
 //* Db set up
 try {
     // TODO: Change db name 
@@ -26,7 +28,11 @@ app.engine('hbs', handlebars.engine({
     runtimeOptions: {
         allowProtoPropertiesByDefault: true,
     },
-   
+    helpers: {
+        setTitle(title) {
+            this.pageTitle = title;
+        }
+    }
 }));
 app.set('view engine', 'hbs');
 app.set('views', './src/views');
