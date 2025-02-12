@@ -8,6 +8,10 @@ export default {
     },
 
     getAllForCatalog() {
-        return Volcano.find({}).select({name: true, location: true, typeVolcano: true, image: true});
+        return Volcano.find({}).select({ name: true, location: true, typeVolcano: true, image: true });
+    },
+
+    getOne(volcanoId) {
+        return Volcano.findById(volcanoId);
     }
 }

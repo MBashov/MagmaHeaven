@@ -17,9 +17,19 @@ volcanoController.get('/catalog', async (req, res) => {
     } catch (err) {
         //TODO: Error handling!
         console.log(err.message);
-        
-    }
 
+    }
+});
+
+volcanoController.get('/:volcanoId/details', async (req, res) => {
+    const volcanoId = req.params.volcanoId;
+
+    try {
+        const volcano = await volcanoServise.getOne(volcanoId);
+        res.render('volcano/details', { volcano });
+    } catch (err) {
+        //TODO: Error handling!
+    }
 });
 
 volcanoController.get('/create', isAuth, (req, res) => {
@@ -33,7 +43,7 @@ volcanoController.post('/create', isAuth, async (req, res) => {
 
     try {
         await volcanoServise.create(volcanoData, req.user.id);
-        res.redirect('/catalog');
+        res.redirect('/volcanoes/catalog');
     } catch (err) {
         const types = getVolcanoTypes(volcanoData.typeVolcano);
         console.log(types);
