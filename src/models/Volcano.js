@@ -18,7 +18,7 @@ const volcanoSchema = new Schema({
     },
     lastEruption: {
         type: Number,
-        required: [true, 'Last eruption is required!'],
+        required: [true, 'Year of Last Eruption is required!'],
         min: [0, 'Year of Last Eruption should be between 0 and 2025'],
         max: [2025, 'Year of Last Eruption should be between 0 and 2025'],
     },
@@ -29,8 +29,8 @@ const volcanoSchema = new Schema({
     },
     typeVolcano: {
         type: String,
-        required: [true, 'Type volcano is required!'],
-        enum: ['Type should be select between ["Supervolcanoes", "Submarine", "Subglacial", "Mud", "Stratovolcanoes", "Shield"]']
+        required: [true, 'Volcano type is required!'],
+        enum: ["Supervolcanoes", "Submarine", "Subglacial", "Mud", "Stratovolcanoes", "Shield"],
     },
     description: {
         type: String,
@@ -46,3 +46,7 @@ const volcanoSchema = new Schema({
         ref: 'User',
     }
 });
+
+const Volcano = model('Volcano', volcanoSchema);
+
+export default Volcano;
