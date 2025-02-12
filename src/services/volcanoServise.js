@@ -13,5 +13,9 @@ export default {
 
     getOne(volcanoId) {
         return Volcano.findById(volcanoId);
+    },
+
+    delete(volcanoId) {
+        return Volcano.findByIdAndDelete(volcanoId);
     }
 }

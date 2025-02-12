@@ -26,7 +26,10 @@ volcanoController.get('/:volcanoId/details', async (req, res) => {
 
     try {
         const volcano = await volcanoServise.getOne(volcanoId);
-        res.render('volcano/details', { volcano });
+        const isCreator = volcano.owner.equals(req.user?.id);
+        console.log(isCreator);
+
+        res.render('volcano/details', { volcano, isCreator });
     } catch (err) {
         //TODO: Error handling!
     }
@@ -49,6 +52,24 @@ volcanoController.post('/create', isAuth, async (req, res) => {
         console.log(types);
 
         res.render('volcano/create', { volcanoData, types, error: getErrorMessage(err) });
+    }
+});
+
+volcanoController.get('/:volcanoId/delete', isAuth, async (req, res) => {
+    const volcanoId = req.params.volcanoId;
+
+    try {
+        const volcano = await volcanoServise.getOne(volcanoId);
+        const isCreator = volcano.owner.equals(req.user.id);
+        if (!isCreator) {
+            res.setError('You are not authorized for this action!');
+            return res.redirect('/');
+        }
+
+        await volcanoServise.delete(volcanoId);
+        res.redirect('/volcanoes/catalog');
+    } catch (err) {
+        //TODO: Error Handling
     }
 });
 
