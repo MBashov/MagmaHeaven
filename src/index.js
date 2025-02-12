@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import cookieParser from 'cookie-parser'; 
 import expressSession from 'express-session'; 
 
+import routes from "./routes.js";
+
 
 //* Db set up
 try {
@@ -38,6 +40,7 @@ app.use(expressSession({
     cookie: { secure: false, httpOnly: true }
 }));
 
+app.use(routes);
 
 //* Start express
 app.listen(3000, () => console.log('Server is listening on http://localhost:3000...'));
