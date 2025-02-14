@@ -13,7 +13,6 @@ const app = express();
 
 //* Db set up
 try {
-    // TODO: Change db name 
     await mongoose.connect('mongodb://localhost:27017/MagmaHeaven');
     console.log('DB conected succesfully!');
 } catch (err) {

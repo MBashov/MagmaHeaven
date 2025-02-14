@@ -15,9 +15,8 @@ volcanoController.get('/catalog', async (req, res) => {
         res.render('volcano/catalog', { vulcanoes });
 
     } catch (err) {
-        console.log(err);
-        //TODO: Error handling!
-
+        res.setError(getErrorMessage(err));
+        res.redirect('/404');
     }
 });
 
@@ -30,11 +29,11 @@ volcanoController.get('/:volcanoId/details', async (req, res) => {
 
         const isCreator = volcano.owner.equals(userId);
         const hasVote = volcano.voteList.includes(userId);
-    
+
         res.render('volcano/details', { volcano, userId, isCreator, hasVote });
     } catch (err) {
-        console.log(err);
-        //TODO: Error handling!
+        res.setError(getErrorMessage(err));
+        res.redirect('/404');
     }
 });
 
@@ -71,8 +70,8 @@ volcanoController.get('/:volcanoId/delete', isAuth, async (req, res) => {
         await volcanoServise.delete(volcanoId);
         res.redirect('/volcanoes/catalog');
     } catch (err) {
-        console.log(err);
-        //TODO: Error Handling
+        res.setError(getErrorMessage(err));
+        res.redirect('/404');
     }
 });
 
@@ -92,8 +91,8 @@ volcanoController.get('/:volcanoId/edit', isAuth, async (req, res) => {
 
         res.render('volcano/edit', { volcano, types });
     } catch (err) {
-        console.log(err);
-        //TODO: Error Handling
+        res.setError(getErrorMessage(err));
+        res.redirect('/404');
     }
 });
 
@@ -146,8 +145,8 @@ volcanoController.get('/:volcanoId/vote', isAuth, async (req, res) => {
         res.redirect(`/volcanoes/${volcanoId}/details`);
 
     } catch (err) {
-        console.log(err);
-        //TODO: Error Handling
+        res.setError(getErrorMessage(err));
+        res.redirect('/404');
     }
 });
 
@@ -162,8 +161,8 @@ volcanoController.get('/search', async (req, res) => {
 
         res.render('volcano/search', { volcanoes, name, volcanoTypes });
     } catch (err) {
-        //TODO: Error handling
-        console.log(err);
+        res.setError(getErrorMessage(err));
+        res.redirect('/404');
 
     }
 });
