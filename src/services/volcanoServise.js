@@ -32,4 +32,8 @@ export default {
     edit(volcanoId, volcano) {
         return Volcano.findByIdAndUpdate(volcanoId, volcano, { runValidators: true });
     },
+
+    vote(volcanoId, userId) {
+        return Volcano.findByIdAndUpdate(volcanoId, { $push: { voteList: userId } })
+    }
 }

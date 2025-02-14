@@ -23,12 +23,15 @@ volcanoController.get('/catalog', async (req, res) => {
 
 volcanoController.get('/:volcanoId/details', async (req, res) => {
     const volcanoId = req.params.volcanoId;
+    const userId = req.user?.id;
 
     try {
         const volcano = await volcanoServise.getOne(volcanoId);
-        const isCreator = volcano.owner.equals(req.user?.id);
 
-        res.render('volcano/details', { volcano, isCreator });
+        const isCreator = volcano.owner.equals(userId);
+        const hasVote = volcano.voteList.includes(userId);
+    
+        res.render('volcano/details', { volcano, userId, isCreator, hasVote });
     } catch (err) {
         console.log(err);
         //TODO: Error handling!
@@ -62,7 +65,7 @@ volcanoController.get('/:volcanoId/delete', isAuth, async (req, res) => {
         const isCreator = volcano.owner.equals(req.user.id);
         if (!isCreator) {
             res.setError('You are not authorized for this action!');
-            return res.redirect('/404');
+            return res.redirect(`/volcanoes/${volcanoId}/details`);
         }
 
         await volcanoServise.delete(volcanoId);
@@ -84,7 +87,7 @@ volcanoController.get('/:volcanoId/edit', isAuth, async (req, res) => {
         const isCreator = volcano.owner.equals(req.user.id);
         if (!isCreator) {
             res.setError('You are not authorized for this action!');
-            return res.redirect('/404');
+            return res.redirect(`/volcanoes/${volcanoId}/details`);
         }
 
         res.render('volcano/edit', { volcano, types });
@@ -105,7 +108,7 @@ volcanoController.post('/:volcanoId/edit', isAuth, async (req, res) => {
         const isCreator = volcano.owner.equals(req.user.id);
         if (!isCreator) {
             res.setError('You are not authorized for this action!');
-            return res.redirect('/404');
+            return res.redirect(`/volcanoes/${volcanoId}/details`);
         }
 
         await volcanoServise.edit(volcanoId, volcanoData);
@@ -115,7 +118,36 @@ volcanoController.post('/:volcanoId/edit', isAuth, async (req, res) => {
     } catch (err) {
         const types = getVolcanoTypes(volcanoData.typeVolcano);
         res.render('volcano/edit', { volcano: volcanoData, types, error: getErrorMessage(err) });
+    }
+});
 
+volcanoController.get('/:volcanoId/vote', isAuth, async (req, res) => {
+    const userId = req.user.id;
+    const volcanoId = req.params.volcanoId;
+
+    try {
+
+        const volcano = await volcanoServise.getOne(volcanoId);
+
+        const isOwner = volcano.owner.equals(userId);
+        if (isOwner) {
+            res.setError('Cannot vote for own post!');
+            return res.redirect(`/volcanoes/${volcanoId}/details`);
+        }
+
+        const hasVote = volcano.voteList.includes(userId);
+        if (hasVote) {
+            res.setError('You have already vote for this post!');
+            return res.redirect(`/volcanoes/${volcanoId}/details`);
+        }
+
+        await volcanoServise.vote(volcanoId, userId);
+
+        res.redirect(`/volcanoes/${volcanoId}/details`);
+
+    } catch (err) {
+        console.log(err);
+        //TODO: Error Handling
     }
 });
 
