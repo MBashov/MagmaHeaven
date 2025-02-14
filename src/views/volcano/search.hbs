@@ -2,15 +2,12 @@
 <section class="volcano-search">
     <h1>Search</h1>
 
-    <form class="search-form" method="POST">
-        <input type="text" class="search-volcano" name="" placeholder="Search by Name...">
-        <select id="type" name="">
-            <option value="Supervolcanoes">Supervolcanoes</option>
-            <option value="Submarine">Submarine</option>
-            <option value="Subglacial">Subglacial</option>
-            <option value="Mud">Mud</option>
-            <option value="Stratovolcanoes">Stratovolcanoes</option>
-            <option value="Shield">Shield</option>
+    <form class="search-form" method="GET">
+        <input type="text" class="search-volcano" name="name" value="{{name}}" placeholder="Search by Name...">
+        <select id="type" name="typeVolcano"> 
+            {{#each volcanoTypes}}
+            <option value="{{value}}" {{selected}}>{{label}}</option>
+            {{/each}}
         </select>
         <button type="submit" class="btn-search">Search</button>
     </form>

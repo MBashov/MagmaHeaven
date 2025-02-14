@@ -121,13 +121,20 @@ volcanoController.post('/:volcanoId/edit', isAuth, async (req, res) => {
 
 volcanoController.get('/search', async (req, res) => {
 
-    try {
-        const volcanoes = await volcanoServise.getAll();
+    const { name, typeVolcano } = req.query;
 
-        res.render('volcano/search', { volcanoes });
+    try {
+        const volcanoes = await volcanoServise.getAll({ name, typeVolcano });
+
+        const volcanoTypes = getVolcanoTypes(typeVolcano);
+
+        res.render('volcano/search', { volcanoes, name, volcanoTypes });
     } catch (err) {
+        //TODO: Error handling
+        console.log(err);
 
     }
 });
+
 
 export default volcanoController;

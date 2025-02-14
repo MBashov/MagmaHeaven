@@ -7,8 +7,18 @@ export default {
 
     },
 
-    getAll() {
-        return Volcano.find({}).select({ name: true, location: true, typeVolcano: true, image: true });
+    getAll(filter = {}) {
+        let query = Volcano.find({}).select({ name: true, location: true, typeVolcano: true, image: true });
+
+        if (filter.name) {
+            query = query.find({ name: { $regex: filter.name, $options: 'i' } }).select({ name: true, location: true, typeVolcano: true, image: true });
+        }
+
+        if (filter.typeVolcano) {
+            query = query.find({ typeVolcano: filter.typeVolcano }).select({ name: true, location: true, typeVolcano: true, image: true });
+        }
+
+        return query;
     },
 
     getOne(volcanoId) {
