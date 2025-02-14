@@ -11,7 +11,7 @@ const volcanoController = Router();
 volcanoController.get('/catalog', async (req, res) => {
 
     try {
-        const vulcanoes = await volcanoServise.getAllForCatalog();
+        const vulcanoes = await volcanoServise.getAll();
         res.render('volcano/catalog', { vulcanoes });
 
     } catch (err) {
@@ -119,8 +119,15 @@ volcanoController.post('/:volcanoId/edit', isAuth, async (req, res) => {
     }
 });
 
-volcanoController.get('/search', (req, res) => {
-    res.render('volcano/search');
+volcanoController.get('/search', async (req, res) => {
+
+    try {
+        const volcanoes = await volcanoServise.getAll();
+
+        res.render('volcano/search', { volcanoes });
+    } catch (err) {
+
+    }
 });
 
 export default volcanoController;

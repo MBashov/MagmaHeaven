@@ -7,7 +7,7 @@ export default {
 
     },
 
-    getAllForCatalog() {
+    getAll() {
         return Volcano.find({}).select({ name: true, location: true, typeVolcano: true, image: true });
     },
 

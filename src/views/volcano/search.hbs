@@ -15,25 +15,30 @@
         <button type="submit" class="btn-search">Search</button>
     </form>
 
+    {{#if volcanoes}}
     <div class="search-result">
         <div class="search-list">
+            {{#each volcanoes}}
             <div class="volcano">
                 <div class="volcano-img">
-                    <img src="/static/images/etna.jpg">
+                    <img src="{{image}}">
                 </div>
                 <div class="volcano-info">
-                    <h1>Mount Etna</h1>
-                    <p><span>Location: </span>Sicily Italy</p>
-                    <p><span>Volcano Type: </span>Stratovolcanoes</p>
+                    <h1>{{name}}</h1>
+                    <p><span>Location: </span>{{location}}</p>
+                    <p><span>Volcano Type: </span>{{typeVolcano}}</p>
                 </div>
 
-                <a href="#" class="btn-details">Details</a>
+                <a href="/volcanoes/{{_id}}/details" class="btn-details">Details</a>
             </div>
+            {{/each}}
         </div>
 
     </div>
+    {{else}}
 
     <div class="no-match">
         <p>No match was found!</p>
     </div>
+    {{/if}}
 </section>
