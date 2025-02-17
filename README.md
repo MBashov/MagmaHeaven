@@ -2,7 +2,7 @@
 
 ## SoftUni JS Back-End Course Exam Preparation Task
 
-This project is part of my **exam preparation** for the **SoftUni JS Back-End course**. Here I am geting acquainted with the provided HTML and CSS by SoftUni to create an application for the beauty of volcanoes.🌋
+This project is part of my **exam preparation** for the **SoftUni JS Back-End course**. Here I am getting acquainted with the provided HTML and CSS by SoftUni to create an application for the beauty of volcanoes.🌋
 
 # Table of Contents
 
@@ -57,7 +57,7 @@ Here are the main features of the Magma-Heaven app:
 This project uses the following technologies:
 
 - **Node.js**: JavaScript runtime environment for the backend.
-- **MongoDB**: NoSQL database to store movie data.
+- **MongoDB**: NoSQL database to store volcano data.
 - **Express.js**: Web framework for building the server.
 - **Handlebars**: Templating engine for rendering dynamic content on the frontend.
 - **CSS**: Styling for the app's user interface  (provided by the university).
